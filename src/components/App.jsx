@@ -1,9 +1,6 @@
 import React, { Component } from "react";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import "../assets/normalize.css";
-import axios from "axios";
-import unirest from "unirest";
-
 class App extends Component {
   constructor(props) {
     super(props);
@@ -13,7 +10,8 @@ class App extends Component {
       student: {},
       nombre: "",
       correo: "",
-      carrera: ""
+      carrera: "",
+      matricula: ""
     };
   }
 
@@ -29,10 +27,10 @@ class App extends Component {
 
 
   handleCreateStudent = () => {
-    const {nombre, correo, carrera} = this.state;
+    const {nombre, correo, carrera, matricula} = this.state;
     fetch("http://localhost:4567/rest/estudiantes/", {
       method: "POST",
-      body: {"nombre": nombre, "correo": correo, "carrera": carrera},
+      body: JSON.stringify({"nombre": nombre, "correo": correo, "carrera": carrera, "matricula": matricula}),
       "accept-type": "application/json"
     })
   };
@@ -87,7 +85,8 @@ class App extends Component {
         <div>
           <input type="nombre" placeholder="Nombre" onChange={(e) => this.setState({nombre: e.target.value})}/>
           <input type="correo" placeholder="Correo" onChange={(e) => this.setState({correo: e.target.value})}/>
-          <input type="carrera" placeholder="carrera" onChange={(e) => this.setState({carrra: e.target.value})}/>
+          <input type="carrera" placeholder="carrera" onChange={(e) => this.setState({carrera: e.target.value})}/>
+          <input type="matricula" placeholder="matricula" onChange={(e) => this.setState({matricula: e.target.value})}/>
           <button typoe="button" onClick={this.handleCreateStudent}>Crear Estudiante</button>
         </div>
 
